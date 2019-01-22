@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Shop;
 use App\User;
+
+use App\Http\Resources\Shop as ShopResource;
 
 class ShopController extends Controller
 {
@@ -14,16 +17,16 @@ class ShopController extends Controller
     */
     public function index()
     {
-        $user_id = 1;
+        $user_id = Auth::user()->id;
 
         $shops = Shop::whereDoesntHave('reactions', function ($query) use ($user_id){
             $query->whereIn('reaction_type', ['like', 'deslike']);
             $query->where('user_id', $user_id);
         })
         ->orderBy('distance', 'asc')
-        ->paginate(4);
+        ->paginate(10);
 
-        return $shops;
+        return ShopResource::collection($shops);
     }
 
     /**
@@ -32,16 +35,16 @@ class ShopController extends Controller
     */
     public function preferred()
     {
-        $user_id = 1;
+        $user_id = Auth::user()->id;
 
         $shops = Shop::whereHas('reactions', function ($query) use ($user_id){
             $query->where('reaction_type', 'like');
             $query->where('user_id', $user_id);
         })
         ->orderBy('distance', 'asc')
-        ->get();
+        ->paginate(10);
 
-        return $shops;
+        return ShopResource::collection($shops);
     }
 
     /**
@@ -53,20 +56,21 @@ class ShopController extends Controller
 
         $shop_id = $request->shop_id;
 
-        if(!isset($shop_id)){
-            return response()->json([
-                'message' => 'The given data was invalid.',
+        if(!isset($shop_id)
+            || !Shop::find($shop_id)){
+            return response()->json([ 'data' => 
+                ['error' => 'The given data was invalid.'],
             ], 422);
         }
 
-        $user = User::find(1);
+        $user = Auth::user();
         
         $user->reactions()->attach($shop_id, [
             'reaction_type' => 'like'
         ]);
 
-        return response()->json([
-            'done' => 'shop liked :)'
+        return response()->json([ 'data' => 
+            ['message' => 'shop got a like'],
         ], 201);
 
     }
@@ -80,19 +84,20 @@ class ShopController extends Controller
 
         $shop_id = $request->shop_id;
 
-        if(!isset($shop_id)){
-            return response()->json([
-                'message' => 'The given data was invalid.',
+        if(!isset($shop_id)
+            || !Shop::find($shop_id)){
+            return response()->json([ 'data' => 
+                ['error' => 'The given data was invalid.'],
             ], 422);
         }
 
-        $user = User::find(1);
+        $user = Auth::user();
         
         $user->reactions()->detach($shop_id);
 
-        return response()->json([
-            'done' => 'shop unliked :('
-        ], 200);
+        return response()->json([ 'data' => 
+            ['message' => 'shop unliked'],
+        ], 201);
 
     }
 
@@ -105,20 +110,21 @@ class ShopController extends Controller
 
         $shop_id = $request->shop_id;
 
-        if(!isset($shop_id)){
-            return response()->json([
-                'message' => 'The given data was invalid.',
+        if(!isset($shop_id)
+            || !Shop::find($shop_id)){
+            return response()->json([ 'data' => 
+                ['error' => 'The given data was invalid.'],
             ], 422);
         }
 
-        $user = User::find(1);
+        $user = Auth::user();
         
         $user->reactions()->attach($shop_id, [
             'reaction_type' => 'deslike'
         ]);
 
-        return response()->json([
-            'done' => 'shop deslike :)'
+        return response()->json([ 'data' => 
+            ['message' => 'shop got a deslike'],
         ], 201);
 
     }
