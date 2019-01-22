@@ -33,6 +33,7 @@ class User extends Authenticatable
      * each shop can be either {liked} or {desliked} by a user
     */
     public function reactions(){
+        
         return $this->belongsToMany('App\Shop', 'users_reactions')
                 ->using('App\UsersReactions')
                 ->as('reactions')
