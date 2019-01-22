@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password', 'api_token'
     ];
 
     /**
@@ -29,7 +29,19 @@ class User extends Authenticatable
     ];
 
     /**
-     * define the many to many relationship between shops & users
+     * @return api_token
+     * Generates random token and attach it to the user
+    */
+    public function generateToken()
+    {
+        $this->api_token = str_random(60);
+        $this->save();
+
+        return $this->api_token;
+    }
+
+    /**
+     * Define the many to many relationship between shops & users
      * each shop can be either {liked} or {desliked} by a user
     */
     public function reactions(){
