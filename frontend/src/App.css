@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.btn {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #000;
+    background-color: #ccc;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    outline: 0;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.btn-danger {
+    background-color: #dc291c;
+}
+
+.btn-success {
+    background-color: #009688;
+}
+
+.invalid-feedback {
+    color: #dc291c;
+    font-size: 0.8em;
+}
+
+.lg {
+    font-size: 1.2em;
+}
+
+#alerts {
+    grid-column: 1/5;
+    width: 100%;
+}
+
+.alert {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    margin: 5px;
+    color: white;
+}
+
+.close-alert {
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.alert-danger {
+    background-color: #dc291c;
+}
+
+.alert-success {
+    background-color: #009688;
+}
+
+/* Navbar Styling */
+
+.main-navbar {
+    background-color: #bdc3c7;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.home {
+    color: #444;
+}
+
+.right-nav {
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.right-nav > li {
+    display: inline;
+}
+
+.right-nav > li > a {
+    color: #444;
+    padding: 15px;
+}
+
+.right-nav > li > a:hover {
+    background-color: #a3a5a4;
+}
+
+
+/* Shops Styling */
+
+.shops {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+    justify-items: center;
+    align-items: center;
+}
+
+.shop {
+    width: 200px;
+    padding: 2px 10px;
+    border: 2px solid #000;
+    box-shadow: 1px 0px 5px #000;
+}
+
+.shop-image {
+    flex: 1;
+    height: 200px;
+    border: 1px solid #000;
+}
+
+.shop-actions {
+    display: flex;
+    flex-direction: row;
+    padding: 5px 0px;
+}
+
+.shop-actions > .btn:first-child {
+    margin-right: 5px;
+}
+
+
+/* Sign in/up Styling */
+
+.login, .register {
+    width: 500px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 5px #000;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.invalid > .form-control {
+    border-color: #dc291c;
+}
+
+.form-group > label {
+    margin-bottom: 5px;
+}
+
+.form-control {
+    border: 1px solid #444;
+    border-radius: 3px;
+    padding: 10px;
+    outline: 0;
+}
