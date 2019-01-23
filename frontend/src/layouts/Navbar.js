@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { userService } from '../services/user.service'
 
 class Navbar extends Component {
 
     render() {
 
-        const logeed = false;
+        const logged = userService.isLogged();
 
         return (
             <nav className='main-navbar'>
@@ -14,7 +15,7 @@ class Navbar extends Component {
                         <h2>Nearby Shops</h2>
                     </Link>
                     <ul className='right-nav'>
-                        {!logeed ? (
+                        {!logged ? (
                             <React.Fragment>
                             <li>
                                 <Link to='/login'>Login</Link>
