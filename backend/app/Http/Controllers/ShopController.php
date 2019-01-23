@@ -24,7 +24,7 @@ class ShopController extends Controller
             $query->where('user_id', $user_id);
         })
         ->orderBy('distance', 'asc')
-        ->paginate(10);
+        ->get();
 
         return ShopResource::collection($shops);
     }
@@ -42,7 +42,7 @@ class ShopController extends Controller
             $query->where('user_id', $user_id);
         })
         ->orderBy('distance', 'asc')
-        ->paginate(10);
+        ->get();
 
         return ShopResource::collection($shops);
     }
